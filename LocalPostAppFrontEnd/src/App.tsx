@@ -1,6 +1,7 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { Upload } from 'lucide-react';
 import './App.scss';
+import { fileService } from './axiosConfig/apiService';
 
 interface FormData {
   name: string;
@@ -29,12 +30,12 @@ const UploadForm: React.FC = () => {
     }
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
     console.log('Submitted:', formData);
-    // Here will be submit logic
+    await fileService.uploadFiles(formData.name, formData.files);
   };
-
+  
   return (
     <div className="upload-page">
       <div className="upload-container">
